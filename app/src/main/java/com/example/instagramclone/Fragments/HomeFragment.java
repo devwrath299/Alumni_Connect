@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private List<String> followinglist;
     private ImageView camera;
     private  ImageView gotomessage;
+    // commented code
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
