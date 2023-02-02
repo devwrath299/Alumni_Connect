@@ -50,6 +50,19 @@
         android:padding="10dp"
         android:inputType="textPassword"
         android:layout_marginTop="15dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_background"
+        android:id="@+id/Email"
+        android:layout_marginTop="15dp">
+        <Spinner
+            android:id="@+id/spinnerCollege"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            />
+
+    </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,5 +81,6 @@
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:id="@+id/textview"/>
+
 
 </LinearLayout>
