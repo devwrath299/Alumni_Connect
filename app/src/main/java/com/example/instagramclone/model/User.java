@@ -6,10 +6,30 @@ public class User {
     private String Email;
     private String Password;
     private String UserId;
+    private String collegeId;
     private String bio;
     private String ImageUrl;
 
     public User() {
+    }
+
+    public String getCollegeId() {
+        return collegeId;
+    }
+
+    public User(String username, String name, String email, String password, String userId, String collegeId, String bio, String imageUrl) {
+        Username = username;
+        Name = name;
+        Email = email;
+        Password = password;
+        UserId = userId;
+        this.collegeId = collegeId;
+        this.bio = bio;
+        ImageUrl = imageUrl;
+    }
+
+    public void setCollegeId(String collegeId) {
+        this.collegeId = collegeId;
     }
 
     public User(String username, String name, String email, String password, String userId, String bio, String imageUrl) {

@@ -61,8 +61,7 @@ public class Singup_Activity extends AppCompatActivity implements
         password = findViewById(R.id.Password);
         register = findViewById(R.id.registerbtn);
         textView = findViewById(R.id.textview);
-        collegeNamelist.add("IIIT UNA");
-        collegeNamelist.add("IIT Ropar");
+
         mAuth = FirebaseAuth.getInstance();
         spin = (Spinner) findViewById(R.id.spinnerCollege);
         spin.setOnItemSelectedListener(this);
@@ -115,6 +114,7 @@ public class Singup_Activity extends AppCompatActivity implements
         FirebaseDatabase.getInstance().getReference().child("college").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                colegeList.clear();
                 for (DataSnapshot np : snapshot.getChildren()){
                     colegeList.add(np.getValue(College.class));
                 }

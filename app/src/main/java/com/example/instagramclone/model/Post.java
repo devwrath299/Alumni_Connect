@@ -6,9 +6,28 @@ public class Post {
     private  String Description;
     private  String publisher;
     private  String postType;
+    private String collegeId;
     private Job jobData;
 
     public Post() {
+    }
+
+    public String getCollegeId() {
+        return collegeId;
+    }
+
+    public void setCollegeId(String collegeId) {
+        this.collegeId = collegeId;
+    }
+
+    public Post(String postId, String imageUrl, String description, String publisher, String postType, String collegeId, Job jobData) {
+        PostId = postId;
+        ImageUrl = imageUrl;
+        Description = description;
+        this.publisher = publisher;
+        this.postType = postType;
+        this.collegeId = collegeId;
+        this.jobData = jobData;
     }
 
     public Post(String postId, String imageUrl, String description, String publisher, String postType, Job jobData) {
