@@ -44,10 +44,11 @@ public class Singup_Activity extends AppCompatActivity implements
     private TextView textView;
     private FirebaseAuth mAuth;
     ProgressDialog pd;
+    Spinner spin;
 
-    List<String>college_list=new ArrayList<>();
-    String currentCollegeName=null;
-    List<College>collegeNewList=new ArrayList<>();
+    List<String>collegeNamelist=new ArrayList<>();
+    String currentCollegeNameSelected=null;
+    List<College>colegeList=new ArrayList<>();
 
 
     @Override
@@ -60,10 +61,10 @@ public class Singup_Activity extends AppCompatActivity implements
         password = findViewById(R.id.Password);
         register = findViewById(R.id.registerbtn);
         textView = findViewById(R.id.textview);
-        college_list.add("IIIT UNA");
-        college_list.add("IIT Ropar");
+        collegeNamelist.add("IIIT UNA");
+        collegeNamelist.add("IIT Ropar");
         mAuth = FirebaseAuth.getInstance();
-        Spinner spin = (Spinner) findViewById(R.id.spinnerCollege);
+        spin = (Spinner) findViewById(R.id.spinnerCollege);
         spin.setOnItemSelectedListener(this);
 
 
@@ -76,7 +77,7 @@ public class Singup_Activity extends AppCompatActivity implements
 
             }
         });
-        String college_id=fetchCollegeid(currentCollegeName);
+        fetchColleges();
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +90,7 @@ public class Singup_Activity extends AppCompatActivity implements
                 } else if (textPassword.length() < 6) {
                     Toast.makeText(Singup_Activity.this, "Password too Short", Toast.LENGTH_SHORT).show();
                 }
-                else if(currentCollegeName==null)
+                else if(currentCollegeNameSelected==null)
                 {
                     Toast.makeText(Singup_Activity.this, "Please Select College", Toast.LENGTH_SHORT).show();
                 }
@@ -105,28 +106,19 @@ public class Singup_Activity extends AppCompatActivity implements
 
         });
 
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,college_list);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spin.setAdapter(aa);
+
 
 
     }
 
-    private String fetchCollegeid(final String currentCollegeName) {
+    private void fetchColleges() {
         FirebaseDatabase.getInstance().getReference().child("college").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot np : snapshot.getChildren()){
-                      collegeNewList.add(np.getValue(College.class));
+                    colegeList.add(np.getValue(College.class));
                 }
-
-                for(College c:collegeNewList)
-                {
-                    if(c.getCollegeName()==currentCollegeName)
-                        return c.getCollegeId();
-                }
-
+              setSpinnerAdapter();
             }
 
             @Override
@@ -134,7 +126,24 @@ public class Singup_Activity extends AppCompatActivity implements
 
             }
         });
+    }
 
+    private void setSpinnerAdapter() {
+        for(College c: colegeList){
+            collegeNamelist.add(c.getCollegeName());
+        }
+        ArrayAdapter spinnerAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,collegeNamelist);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(spinnerAdapter);
+    }
+
+    private String fetchCollegeIdFromCollegeName(String currentCollegeName) {
+        for(College college: colegeList){
+            if(college.getCollegeName()== currentCollegeName){
+                return college.getCollegeId();
+            }
+        }
+        return  colegeList.get(0).getCollegeId();
     }
 
     private void registeruser(final String Username, final String Name, final String Email, final String Password) {
@@ -151,7 +160,7 @@ public class Singup_Activity extends AppCompatActivity implements
                 map.put("UserId",Uid);
                 map.put("bio","");
                 map.put("ImageUrl","default");
-                map.put("collegeId",getCollegeIdFromName(currentCollegeName));
+                map.put("collegeId",fetchCollegeIdFromCollegeName(currentCollegeNameSelected));
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference();
                 myRef.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(map);
@@ -184,8 +193,8 @@ public class Singup_Activity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        currentCollegeName = college_list.get(i);
-        Toast.makeText(this, college_list.get(i) + " Selected", Toast.LENGTH_SHORT).show();
+        currentCollegeNameSelected = collegeNamelist.get(i);
+        Toast.makeText(this, collegeNamelist.get(i) + " Selected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
