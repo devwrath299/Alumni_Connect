@@ -20,11 +20,16 @@ import com.example.instagramclone.Fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Start_activity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment selectorFragment;
     FloatingActionButton btnadd;
+    public  String currentCollegeId;
 
 
     @Override
@@ -41,6 +46,7 @@ public class Start_activity extends AppCompatActivity {
 
             }
         });
+        set_college_id();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,6 +104,23 @@ public class Start_activity extends AppCompatActivity {
 
 
         }
+    }
+
+    private void set_college_id() {
+        String ans=null;
+        final String current_user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
+          FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id).child("collegeId").addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot snapshot) {
+                  currentCollegeId=snapshot.getValue(String.class);
+              }
+
+              @Override
+              public void onCancelled(@NonNull DatabaseError error) {
+
+              }
+          });
+       
     }
 
     private void showAlertDialogBox() {

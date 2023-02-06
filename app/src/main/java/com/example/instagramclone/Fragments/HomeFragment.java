@@ -1,5 +1,6 @@
 package com.example.instagramclone.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -37,11 +38,16 @@ public class HomeFragment extends Fragment {
     private List<String> followinglist;
     private ImageView camera;
     private  ImageView gotomessage;
-    // commented code
+    public String currentCollegeId;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Start_activity home=(Start_activity)getActivity();
+        currentCollegeId= home.currentCollegeId;
+
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerviewpost = view.findViewById(R.id.recyclerview_posts);
         camera = view.findViewById(R.id.camera);
@@ -50,6 +56,7 @@ public class HomeFragment extends Fragment {
        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
        linearLayoutManager.setStackFromEnd(true);
        linearLayoutManager.setReverseLayout(true);
+
        recyclerviewpost.setLayoutManager(linearLayoutManager);
       postList = new ArrayList<>();
       postAdapter = new PostAdapter(getContext(),postList);
