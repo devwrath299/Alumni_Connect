@@ -61,10 +61,13 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
         holder.btnfollow.setVisibility(View.VISIBLE);
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
+        holder.collegeName.setText(user.getCollegeId());
         Picasso.get().load(user.getImageUrl()).placeholder(R.drawable.unkown_person_24).into(holder.profileimage);
         isfollowed(user.getUserId(),holder.btnfollow);
         if (user.getUserId().equals(firebaseUser.getUid())){
             holder.btnfollow.setVisibility(View.GONE);
+        }else{
+            holder.btnfollow.setVisibility(View.VISIBLE);
         }
         holder.btnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +158,7 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
         public TextView username;
         public  TextView name;
         public Button btnfollow;
+        public TextView collegeName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -162,6 +166,7 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
             username = itemView.findViewById(R.id.username);
             name = itemView.findViewById(R.id.fullname);
             btnfollow = itemView.findViewById(R.id.btnfollow);
+            collegeName = itemView.findViewById(R.id.collgeName);
 
 
 

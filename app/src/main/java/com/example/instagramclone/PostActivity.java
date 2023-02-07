@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -36,6 +39,7 @@ public class PostActivity extends AppCompatActivity {
     ImageView imageadded;
     TextView post;
     AutoCompleteTextView description;
+    String currentCollegeId;
 
 
     @Override
@@ -46,6 +50,7 @@ public class PostActivity extends AppCompatActivity {
         imageadded = findViewById(R.id.imageadded);
         post = findViewById(R.id.post);
         description = findViewById(R.id.description);
+        setCollegeId();
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +67,21 @@ public class PostActivity extends AppCompatActivity {
         });
 
         CropImage.activity().start(PostActivity.this);
+    }
+    private void setCollegeId() {
+        final String current_user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id).child("collegeId").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentCollegeId=snapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void upload() {
@@ -93,6 +113,7 @@ public class PostActivity extends AppCompatActivity {
                             map.put("ImageUrl",imageUrl);
                             map.put("Description",description.getText().toString());
                             map.put("postType","POST");
+                            map.put("collegeId",currentCollegeId);
                             map.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                             ref.child(PostId).setValue(map);
                             pd.dismiss();

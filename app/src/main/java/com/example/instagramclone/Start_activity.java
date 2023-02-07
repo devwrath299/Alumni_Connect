@@ -107,7 +107,6 @@ public class Start_activity extends AppCompatActivity {
     }
 
     private void set_college_id() {
-        String ans=null;
         final String current_user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
           FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id).child("collegeId").addValueEventListener(new ValueEventListener() {
               @Override

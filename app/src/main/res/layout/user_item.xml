@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
-    app:cardElevation="10dp"
-    android:elevation="10dp"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="5dp"
-    app:cardCornerRadius="20dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp"
     android:background="?android:attr/windowBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:src="@drawable/person_24"/>
+    android:elevation="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:src="@drawable/person_24" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="false"
-            android:layout_marginRight="15dp"
             android:layout_marginStart="15dp"
-            android:layout_toEndOf="@id/profile_image"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-
-
-            android:orientation="vertical"
-            android:layout_toRightOf="@id/profile_image">
+            android:layout_marginRight="15dp"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_toRightOf="@id/profile_image"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/username"
@@ -44,41 +43,48 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="username"
-                android:textSize="18sp"
                 android:textColor="@color/design_default_color_primary_dark"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="fullname"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/collgeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:maxLines="1"
+                android:text="College Name"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
 
         </LinearLayout>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnfollow"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:shadowRadius="5"
-                app:cornerRadius="5dp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/red"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:text="Follow"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnfollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:shadowRadius="5"
+            android:text="Follow"
+            android:textColor="@color/red"
+            android:visibility="visible"
+            app:cornerRadius="5dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
 
 

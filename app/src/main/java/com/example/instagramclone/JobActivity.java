@@ -1,6 +1,7 @@
 
 package com.example.instagramclone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,8 +18,11 @@ import android.widget.Toast;
 
 import com.example.instagramclone.model.Job;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -32,6 +36,7 @@ public class JobActivity extends AppCompatActivity implements
     TextView jobDescription;
     String[] jobDomains = { "SDE", "Web", "ML", "Android", "Backend", "Security"};
     String selectedJobDomain = jobDomains[0];
+    String currentCollegeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class JobActivity extends AppCompatActivity implements
         jobRole = findViewById(R.id.jobRole);
         companyName = findViewById(R.id.companyName);
         jobDescription = findViewById(R.id.jobDescription);
+        setCollegeId();
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +78,20 @@ public class JobActivity extends AppCompatActivity implements
         spin.setAdapter(aa);
 
     }
+    private void setCollegeId() {
+        final String current_user_id=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id).child("collegeId").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentCollegeId=snapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     private Boolean checkValidFields() {
         if(jobRole.getText().toString().isEmpty())
@@ -93,6 +113,7 @@ public class JobActivity extends AppCompatActivity implements
         map.put("ImageUrl", "https://firebasestorage.googleapis.com/v0/b/instagram-clone-70f2c.appspot.com/o/Posts%2F1667497119355.null?alt=media&token=f754b5e1-963b-4e9b-8732-1bfa0fff9452");
         map.put("Description", "");
         map.put("postType", "JOB");
+        map.put("collegeId",currentCollegeId);
         map.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
         Job job = new Job();
         job.setCompanyName(companyName.getText().toString());

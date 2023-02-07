@@ -44,8 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Start_activity home=(Start_activity)getActivity();
-        currentCollegeId= home.currentCollegeId;
+        currentCollegeId= ((Start_activity)getActivity()).currentCollegeId;
 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -111,7 +110,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     Post post = npsnapshot.getValue(Post.class);
                     for (String id : followinglist){
-                        if (post.getPublisher().equals(id)){
+                        if (post.getPublisher().equals(id) && post.getCollegeId().equals(currentCollegeId)){
                             postList.add(post);
                         }
                     }

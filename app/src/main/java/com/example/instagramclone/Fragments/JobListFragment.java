@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.instagramclone.R;
+import com.example.instagramclone.Start_activity;
 import com.example.instagramclone.model.JobAdapter;
 import com.example.instagramclone.model.Post;
 import com.example.instagramclone.model.PostAdapter;
@@ -33,6 +34,7 @@ public class JobListFragment extends Fragment {
     RecyclerView recyclerviewpost;
     private JobAdapter postAdapter;
     private List<Post> postList;
+    public String currentCollegeId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,7 @@ public class JobListFragment extends Fragment {
         postList = new ArrayList<>();
         postAdapter = new JobAdapter(getContext(),postList);
         recyclerviewpost.setAdapter(postAdapter);
+        currentCollegeId= ((Start_activity)getActivity()).currentCollegeId;
         readposts();
         ChipGroup chipGroup = view.findViewById(R.id.chipGroup);
 
@@ -152,7 +155,7 @@ public class JobListFragment extends Fragment {
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     Post post = npsnapshot.getValue(Post.class);
 //                    Log.d("codeUpdate", post.toString());
-                        if (post.getPublisher().equals("g0kgJ050EUSLtimY3CMe1gp0moY2")) {
+                        if (post.getPublisher().equals("g0kgJ050EUSLtimY3CMe1gp0moY2") && post.getCollegeId().equals(currentCollegeId)) {
                             if(post.getJobData()!=null){
                                 postList.add(post);
                             }
