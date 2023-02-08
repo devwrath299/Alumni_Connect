@@ -46,6 +46,7 @@ public class MessageAdapter extends  RecyclerView.Adapter<MessageAdapter.ViewHol
         final User user = mUsers.get(position);
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
+        holder.collegeName.setText(user.getCollegeId());
         Picasso.get().load(user.getImageUrl()).placeholder(R.drawable.unkown_person_24).into(holder.profileimage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +72,13 @@ public class MessageAdapter extends  RecyclerView.Adapter<MessageAdapter.ViewHol
         public CircleImageView profileimage;
         public TextView username;
         public  TextView name;
+        public TextView collegeName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profileimage = itemView.findViewById(R.id.profile_image);
             username = itemView.findViewById(R.id.username);
             name = itemView.findViewById(R.id.fullname);
+            collegeName = itemView.findViewById(R.id.collgeName);
         }
     }
 }

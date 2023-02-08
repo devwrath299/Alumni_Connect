@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -112,6 +113,7 @@ public class Start_activity extends AppCompatActivity {
               @Override
               public void onDataChange(@NonNull DataSnapshot snapshot) {
                   currentCollegeId=snapshot.getValue(String.class);
+                  setCollegeIdInSharedPref();
               }
 
               @Override
@@ -120,6 +122,13 @@ public class Start_activity extends AppCompatActivity {
               }
           });
        
+    }
+
+    private void setCollegeIdInSharedPref() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("currentCollegeId", currentCollegeId);
+        myEdit.commit();
     }
 
     private void showAlertDialogBox() {

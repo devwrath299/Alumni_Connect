@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 
 import com.example.instagramclone.R;
+import com.example.instagramclone.Start_activity;
 import com.example.instagramclone.model.User;
 import com.example.instagramclone.model.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ public class SearchFragment extends Fragment {
     private AutoCompleteTextView search_bar;
     private List<User> mUsers;
     private UserAdapter userAdapter;
+    public String currentCollegeId;
 
 
     @Override
@@ -45,6 +47,7 @@ public class SearchFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
+        currentCollegeId= ((Start_activity)getActivity()).currentCollegeId;
         readusers();
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,7 +80,9 @@ public class SearchFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                         User user = npsnapshot.getValue(User.class);
-                        mUsers.add(user);
+                        if(user.getCollegeId().equals(currentCollegeId)) {
+                            mUsers.add(user);
+                        }
 
                     }
 //                if (TextUtils.isEmpty(search_bar.getText().toString())){
@@ -108,8 +113,9 @@ public class SearchFragment extends Fragment {
                 mUsers.clear();
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     User user = npsnapshot.getValue(User.class);
-                    mUsers.add(user);
-
+                    if(user.getCollegeId().equals(currentCollegeId)){
+                        mUsers.add(user);
+                    }
             }
 
                 userAdapter.notifyDataSetChanged();

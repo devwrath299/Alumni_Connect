@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -29,6 +31,7 @@ public class MessageActivity extends AppCompatActivity {
     private AutoCompleteTextView usermessagesearch;
     private List<User> messagelist;
     private MessageAdapter userAdapter;
+    private String currentCollegeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         messagelist = new ArrayList<>();
+        setCurrentCollegeId();
         readmessage();
         usermessagesearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -60,6 +64,11 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void setCurrentCollegeId() {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+       currentCollegeId  = sh.getString("currentCollegeId", "ABC");
+    }
+
     private void searchuser(String s) {
         Query query= FirebaseDatabase.getInstance().getReference().child("Users")
                 .orderByChild("Username").startAt(s).endAt(s+"\uf8ff");
@@ -69,7 +78,9 @@ public class MessageActivity extends AppCompatActivity {
                 messagelist.clear();
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     User user = npsnapshot.getValue(User.class);
-                    messagelist.add(user);
+                    if(user.getCollegeId().equals(currentCollegeId)) {
+                        messagelist.add(user);
+                    }
 
                 }
 
@@ -92,8 +103,9 @@ public class MessageActivity extends AppCompatActivity {
                     if (snapshot.exists()) {
                         for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                             User user = npsnapshot.getValue(User.class);
-                            messagelist.add(user);
-
+                            if(user.getCollegeId().equals(currentCollegeId)) {
+                                messagelist.add(user);
+                            }
                         }
 //                if (TextUtils.isEmpty(search_bar.getText().toString())){
 //                    mUsers.clear();

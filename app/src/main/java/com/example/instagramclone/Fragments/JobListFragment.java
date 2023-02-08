@@ -154,8 +154,7 @@ public class JobListFragment extends Fragment {
                 postList.clear();
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     Post post = npsnapshot.getValue(Post.class);
-//                    Log.d("codeUpdate", post.toString());
-                        if (post.getPublisher().equals("g0kgJ050EUSLtimY3CMe1gp0moY2") && post.getCollegeId().equals(currentCollegeId)) {
+                        if (post.getCollegeId().equals(currentCollegeId)) {
                             if(post.getJobData()!=null){
                                 postList.add(post);
                             }
