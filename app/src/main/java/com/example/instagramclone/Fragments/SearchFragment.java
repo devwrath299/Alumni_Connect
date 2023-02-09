@@ -80,6 +80,7 @@ public class SearchFragment extends Fragment {
                 if (snapshot.exists()) {
                     for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                         User user = npsnapshot.getValue(User.class);
+
                         if(user.getCollegeId().equals(currentCollegeId)) {
                             mUsers.add(user);
                         }
