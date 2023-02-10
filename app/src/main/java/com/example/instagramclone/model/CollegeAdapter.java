@@ -37,7 +37,9 @@ public class CollegeAdapter extends  RecyclerView.Adapter<CollegeAdapter.ViewHol
         viewHolder.collegeName.setText(college.getCollegeName());
         viewHolder.collegeAddress.setText(college.getCollegeAddress());
         viewHolder.collegeID.setText(college.getCollegeId());
-
+        if(college.isHideSwitch()){
+            viewHolder.isSelectedSwitch.setVisibility(View.GONE);
+        }
 
     }
 

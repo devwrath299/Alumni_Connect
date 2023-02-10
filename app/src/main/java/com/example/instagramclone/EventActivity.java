@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.instagramclone.model.College;
 import com.example.instagramclone.model.CollegeAdapter;
-import com.example.instagramclone.model.Post;
-import com.example.instagramclone.model.PostAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +23,7 @@ public class EventActivity extends AppCompatActivity {
     List<College>collegeList=new ArrayList<>();
     RecyclerView recycler_view;
     CollegeAdapter clgAdapter;
+    College currentCollege;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class EventActivity extends AppCompatActivity {
         recycler_view.setAdapter(clgAdapter);
         fetchColleges();
 
-
     }
 
     private void fetchColleges() {
@@ -49,7 +49,17 @@ public class EventActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 collegeList.clear();
                 for (DataSnapshot np : snapshot.getChildren()) {
-                    collegeList.add(np.getValue(College.class));
+                    College clg = np.getValue(College.class);
+                    if(!clg.getCollegeId().equals(getCurrentCollegeId())){
+                        collegeList.add(clg);
+                    }else{
+                        // current college is on First and switch is not visible
+                        clg.setHideSwitch(true);
+                        collegeList.add(0,clg);
+                        currentCollege= clg;
+                    }
+
+
                 }
                 clgAdapter.notifyDataSetChanged();
             }
@@ -59,5 +69,10 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private String getCurrentCollegeId() {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        return sh.getString("currentCollegeId", "ABC");
     }
 }

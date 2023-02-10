@@ -5,6 +5,15 @@ public class College {
     String collegeId;
     String collegeAddress;
     boolean isSelected=false;
+    boolean hideSwitch=false;
+
+    public boolean isHideSwitch() {
+        return hideSwitch;
+    }
+
+    public void setHideSwitch(boolean hideSwitch) {
+        this.hideSwitch = hideSwitch;
+    }
 
     public College(String collegeName, String collegeId, String collegeAddress, boolean isSelected) {
         this.collegeName = collegeName;
