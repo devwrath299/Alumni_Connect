@@ -16,6 +16,7 @@ public class OptionActivity extends AppCompatActivity {
     private  TextView logout;
     private  TextView darktheme;
     private  TextView lighttheme;
+    private  TextView createEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class OptionActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         darktheme = findViewById(R.id.darkmode);
         lighttheme = findViewById(R.id.lightmode);
+        createEvent=findViewById(R.id.createevent);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Options");
@@ -40,6 +42,13 @@ public class OptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(OptionActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
+        });
+        createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OptionActivity.this,EventActivity.class));
                 finish();
             }
         });

@@ -4,6 +4,22 @@ public class College {
     String collegeName;
     String collegeId;
     String collegeAddress;
+    boolean isSelected=false;
+
+    public College(String collegeName, String collegeId, String collegeAddress, boolean isSelected) {
+        this.collegeName = collegeName;
+        this.collegeId = collegeId;
+        this.collegeAddress = collegeAddress;
+        this.isSelected = isSelected;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public College() {
 
@@ -11,6 +27,7 @@ public class College {
 
     public College(String collegeName, String collegeId, String collegeAddress) {
         this.collegeName = collegeName;
+
         this.collegeId = collegeId;
         this.collegeAddress = collegeAddress;
     }
