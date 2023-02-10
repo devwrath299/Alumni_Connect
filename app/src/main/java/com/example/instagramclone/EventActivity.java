@@ -36,7 +36,7 @@ public class EventActivity extends AppCompatActivity {
         linearLayoutManager.setReverseLayout(true);
 
         recycler_view.setLayoutManager(linearLayoutManager);
-        clgAdapter = new CollegeAdapter(getApplicationContext(),collegeList);
+        clgAdapter = new CollegeAdapter(this,collegeList);
         recycler_view.setAdapter(clgAdapter);
         fetchColleges();
 
