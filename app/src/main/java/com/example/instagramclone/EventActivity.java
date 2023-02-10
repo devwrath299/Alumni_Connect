@@ -23,21 +23,20 @@ public class EventActivity extends AppCompatActivity {
     List<College>collegeList=new ArrayList<>();
     RecyclerView recycler_view;
     CollegeAdapter clgAdapter;
-    List<College>list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        list=new ArrayList<>();
+        collegeList=new ArrayList<>();
         recycler_view=findViewById(R.id.collegeRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
 
         recycler_view.setLayoutManager(linearLayoutManager);
-        clgAdapter = new CollegeAdapter(getApplicationContext(),list);
+        clgAdapter = new CollegeAdapter(getApplicationContext(),collegeList);
         recycler_view.setAdapter(clgAdapter);
         fetchColleges();
 
