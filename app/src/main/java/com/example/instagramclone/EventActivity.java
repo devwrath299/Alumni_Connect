@@ -58,10 +58,9 @@ public class EventActivity extends AppCompatActivity {
                         collegeList.add(0,clg);
                         currentCollege= clg;
                     }
-
-
                 }
-                clgAdapter.notifyDataSetChanged();
+                setCollegeSelected();
+//                clgAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -71,8 +70,28 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
+    private void setCollegeSelected() {
+        for (final College college:collegeList) {
+            FirebaseDatabase.getInstance().getReference().child("Events").child(college.getCollegeId()).child("Following").child(getCurrentCollegeId()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 if(dataSnapshot.exists()){
+                     boolean collegeIdValue= Boolean.TRUE.equals(dataSnapshot.getValue(Boolean.class));
+                     college.setSelected(collegeIdValue);
+                 }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            clgAdapter.notifyDataSetChanged();
+        }
+    }
+
     private String getCurrentCollegeId() {
         SharedPreferences sh = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
-        return sh.getString("currentCollegeId", "ABC");
+        return sh.getString("currentCollegeId", "IIITU");
     }
 }
