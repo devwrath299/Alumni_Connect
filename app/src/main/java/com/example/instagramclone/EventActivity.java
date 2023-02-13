@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.instagramclone.model.College;
 import com.example.instagramclone.model.CollegeAdapter;
@@ -33,8 +35,8 @@ public class EventActivity extends AppCompatActivity {
         collegeList=new ArrayList<>();
         recycler_view=findViewById(R.id.collegeRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
+        /*linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);*/
 
         recycler_view.setLayoutManager(linearLayoutManager);
         clgAdapter = new CollegeAdapter(this,collegeList);
@@ -60,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
                     }
                 }
                 setCollegeSelected();
-//                clgAdapter.notifyDataSetChanged();
+                clgAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -71,7 +73,7 @@ public class EventActivity extends AppCompatActivity {
     }
 
     private void setCollegeSelected() {
-        for (final College college:collegeList) {
+       /* for (final College college:collegeList) {
             FirebaseDatabase.getInstance().getReference().child("Events").child(college.getCollegeId()).child("Following").child(getCurrentCollegeId()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,8 +88,41 @@ public class EventActivity extends AppCompatActivity {
 
                 }
             });
-            clgAdapter.notifyDataSetChanged();
+
         }
+        Log.d("college List",collegeList.toString());
+        clgAdapter.notifyDataSetChanged();*/
+        FirebaseDatabase.getInstance().getReference().child("Events").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot np : snapshot.child("Following").getChildren()) {
+                      String Key=np.getKey();
+                     boolean value=np.getValue(Boolean.class);
+                     if(Key.equals(getCurrentCollegeId()))
+                     {
+                         String currentCollegeNodeKey=snapshot.getKey();
+                         for(College cg:collegeList)
+                         {
+                             if(cg.getCollegeId().equals(currentCollegeNodeKey))
+                             {
+                                 cg.setSelected(value);
+                             }
+                         }
+                     }
+
+                }
+                Toast.makeText(EventActivity.this, collegeList.toString(), Toast.LENGTH_SHORT).show();
+               Log.e("Dev",collegeList.toString());
+                clgAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     private String getCurrentCollegeId() {

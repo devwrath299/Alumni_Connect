@@ -61,6 +61,17 @@ public class College {
         return collegeAddress;
     }
 
+    @Override
+    public String toString() {
+        return "College{" +
+                "collegeName='" + collegeName + '\'' +
+                ", collegeId='" + collegeId + '\'' +
+                ", collegeAddress='" + collegeAddress + '\'' +
+                ", isSelected=" + isSelected +
+                ", hideSwitch=" + hideSwitch +
+                '}';
+    }
+
     public void setCollegeAddress(String collegeAddress) {
         this.collegeAddress = collegeAddress;
     }

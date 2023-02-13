@@ -40,6 +40,7 @@ public class CollegeAdapter extends  RecyclerView.Adapter<CollegeAdapter.ViewHol
         if(college.isHideSwitch()){
             viewHolder.isSelectedSwitch.setVisibility(View.GONE);
         }
+        viewHolder.isSelectedSwitch.setSelected(college.isSelected);
 
     }
 
