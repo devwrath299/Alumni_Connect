@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="@dimen/dimen_10dp"
+    app:cardElevation="10dp">
+
+    <ImageView
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"
+        android:src="@drawable/more_vert_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/unkown_person_24" />
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_gravity="center"
+              android:layout_margin="5dp">
+              <TextView
+                  android:id="@+id/username"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:text="username"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:textSize="18sp"
+                  android:textStyle="bold" />
+              <TextView
+                  android:id="@+id/author"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Author"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:textStyle="bold" />
+          </LinearLayout>
+
+        </LinearLayout>
+
+        <View style="@style/Divider" />
+
+
+        <TextView
+            android:id="@+id/tvCoverLetter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:autoLink="web"
+            android:text="Why is he good fit for role"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tvResumeLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Resume Link"
+            android:autoLink="web"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvJobDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="Job Description"
+            android:autoLink="web"
+            android:textColor="@color/red" />
+
+        <View style="@style/Divider" />
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

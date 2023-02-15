@@ -58,7 +58,6 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginLeft="@dimen/dimen_20dp"
                 android:autoLink="web"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="start"
                 android:textColor="#292828"
                 tools:text="Job Description" />
