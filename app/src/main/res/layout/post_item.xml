@@ -92,7 +92,6 @@
             android:layout_marginStart="10dp"
             android:id="@+id/liketext"
             android:text="No of likes"
-
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:layout_marginLeft="10dp" />
@@ -113,7 +112,7 @@
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="10dp"
             android:text="Description"
-
+            android:autoLink="web"
             android:textColor="@color/black"
             android:id="@+id/description"/>
         <TextView

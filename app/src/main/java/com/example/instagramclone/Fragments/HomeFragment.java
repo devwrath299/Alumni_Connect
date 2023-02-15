@@ -110,7 +110,8 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                     Post post = npsnapshot.getValue(Post.class);
                     for (String id : followinglist){
-                        if (post.getPublisher().equals(id) && post.getCollegeId().equals(currentCollegeId)){
+                        //&& post.getCollegeId().equals(currentCollegeId)
+                        if (post.getPublisher().equals(id) && post.getPostType().equals("POST")){
                             postList.add(post);
                         }
                     }

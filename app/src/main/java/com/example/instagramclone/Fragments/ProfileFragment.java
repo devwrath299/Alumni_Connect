@@ -283,7 +283,7 @@ public class ProfileFragment extends Fragment {
                 mypostlist.clear();
                 for (DataSnapshot np : snapshot.getChildren()){
                     Post post = np.getValue(Post.class);
-                    if (post.getPublisher().equals(profileId)){
+                    if (post.getPublisher().equals(profileId) && post.getPostType().equals("POST")){
                         mypostlist.add(post);
                     }
                 }

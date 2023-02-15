@@ -62,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
                     }
                 }
                 setCollegeSelected();
-                clgAdapter.notifyDataSetChanged();
+//                clgAdapter.notifyDataSetChanged();
             }
 
             @Override
