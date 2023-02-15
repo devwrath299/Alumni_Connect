@@ -88,17 +88,6 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvJobDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:text="Job Description"
-            android:autoLink="web"
-            android:textColor="@color/red" />
 
         <View style="@style/Divider" />
 
