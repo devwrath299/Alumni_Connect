@@ -1,5 +1,6 @@
 package com.example.instagramclone.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.instagramclone.PostActivity;
 import com.example.instagramclone.R;
+import com.example.instagramclone.Referent_list;
 import com.example.instagramclone.Start_activity;
 import com.example.instagramclone.model.JobAdapter;
 import com.example.instagramclone.model.Post;
@@ -35,6 +38,7 @@ public class JobListFragment extends Fragment {
     private JobAdapter postAdapter;
     private List<Post> postList;
     public String currentCollegeId;
+    public ImageView notificationButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,10 +53,18 @@ public class JobListFragment extends Fragment {
         recyclerviewpost.setLayoutManager(linearLayoutManager);
         postList = new ArrayList<>();
         postAdapter = new JobAdapter(getContext(),postList);
+        notificationButton=view.findViewById(R.id.notifications);
         recyclerviewpost.setAdapter(postAdapter);
         currentCollegeId= ((Start_activity)getActivity()).currentCollegeId;
         readposts();
         ChipGroup chipGroup = view.findViewById(R.id.chipGroup);
+
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity( new Intent(getContext(), Referent_list.class));
+            }
+        });
 
         chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
@@ -170,4 +182,6 @@ public class JobListFragment extends Fragment {
             }
         });
     }
+
+
 }

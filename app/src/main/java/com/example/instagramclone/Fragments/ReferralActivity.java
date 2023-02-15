@@ -46,6 +46,7 @@ public class ReferralActivity extends AppCompatActivity {
                     map.put("coverLetter",coverLetter);
                     map.put("resumeLetter",resumeLink);
                     map.put("userId",userId);
+                    map.put("publisher",post.getPublisher());
                     FirebaseDatabase.getInstance().getReference().child("Referrals").child(post.getPostId()).child(userId).setValue(map);
                     Toast.makeText(ReferralActivity.this, "Referral Submitted Successful", Toast.LENGTH_SHORT).show();
                     finish();
