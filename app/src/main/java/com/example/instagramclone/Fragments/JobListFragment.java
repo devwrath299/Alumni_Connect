@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.instagramclone.MyPostedJobActivity;
 import com.example.instagramclone.R;
 import com.example.instagramclone.ReferentListActivity;
 import com.example.instagramclone.Start_activity;
@@ -57,7 +58,7 @@ public class JobListFragment extends Fragment {
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity( new Intent(getContext(), ReferentListActivity.class));
+                startActivity( new Intent(getContext(), MyPostedJobActivity.class));
             }
         });
 

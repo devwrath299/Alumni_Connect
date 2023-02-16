@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.instagramclone.ApplyReferralActivity;
 import com.example.instagramclone.R;
+import com.example.instagramclone.ReferentListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     private Context mcontext;
     private List<Post> mPosts;
+    boolean isRefferallayout=false;
     private FirebaseUser firebaseUser;
 
 
@@ -27,6 +29,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         this.mcontext = mcontext;
         this.mPosts = mPosts;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public JobAdapter(Context mcontext, List<Post> mPosts, boolean isRefferallayout) {
+        this.mcontext = mcontext;
+        this.mPosts = mPosts;
+        this.isRefferallayout = isRefferallayout;
     }
 
     public JobAdapter() {
@@ -53,12 +61,19 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         holder.applyReferral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                final Object objSent = new Object();
-//                final Bundle bundle = new Bundle();
-//                bundle.putSerializable("object_value", post);
+                if (isRefferallayout){
+                    holder.applyReferral.setText("See Referral Applicants");
+                    Intent intent =new Intent(mcontext, ReferentListActivity.class);
+                    intent.putExtra("postId", post.getPostId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mcontext.startActivity(intent);
+                }
+                else
+                {
                 Intent intent =new Intent(mcontext, ApplyReferralActivity.class);
                 intent.putExtra("postItem", post);
                 mcontext.startActivity(intent);
+                }
             }
         });
 

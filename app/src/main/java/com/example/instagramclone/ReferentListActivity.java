@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.instagramclone.model.PostAdapter;
@@ -28,6 +29,8 @@ public class ReferentListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referent_list);
+        Intent intent = getIntent();
+        postid=intent.getStringExtra("postId");
         recyclerViewReferent = findViewById(R.id.recyclerViewReferrals);
         recyclerViewReferent.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
