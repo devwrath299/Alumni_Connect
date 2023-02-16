@@ -2,11 +2,14 @@ package com.example.instagramclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.example.instagramclone.model.PostAdapter;
 import com.example.instagramclone.model.Referent;
+import com.example.instagramclone.model.ReferentAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,14 +18,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Referent_list extends AppCompatActivity {
-    List<Referent>referents;
-    public String postid="NOEbyXK_3iNhtGYBz9c";
+public class ReferentListActivity extends AppCompatActivity {
+    List<Referent> referentList;
+    public String postid="-NOEbyXK_3iNhtGYBz9c";
+    RecyclerView recyclerViewReferent;
+    ReferentAdapter referentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referent_list);
-        referents=new ArrayList<>();
+        recyclerViewReferent = findViewById(R.id.recyclerViewReferrals);
+        recyclerViewReferent.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerViewReferent.setLayoutManager(linearLayoutManager);
+        referentList =new ArrayList<>();
+        referentAdapter = new ReferentAdapter(this,referentList);
+        recyclerViewReferent.setAdapter(referentAdapter);
         fetch_referents();
     }
 
@@ -30,16 +42,12 @@ public class Referent_list extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Referrals").child(postid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                referentList.clear();
                 for(DataSnapshot snp:snapshot.getChildren())
                 {
-                    for(DataSnapshot sp:snp.getChildren())
-                    {
-                        Referent rf=sp.getValue(Referent.class);
-                        Toast.makeText(Referent_list.this, "", Toast.LENGTH_SHORT).show();
-                        referents.add(rf);
-                    }
+                        referentList.add(snp.getValue(Referent.class));
                 }
-
+                referentAdapter.notifyDataSetChanged();
             }
 
             @Override

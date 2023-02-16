@@ -8,20 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.instagramclone.PostActivity;
 import com.example.instagramclone.R;
-import com.example.instagramclone.Referent_list;
+import com.example.instagramclone.ReferentListActivity;
 import com.example.instagramclone.Start_activity;
 import com.example.instagramclone.model.JobAdapter;
 import com.example.instagramclone.model.Post;
-import com.example.instagramclone.model.PostAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 public class JobListFragment extends Fragment {
@@ -62,7 +57,7 @@ public class JobListFragment extends Fragment {
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity( new Intent(getContext(), Referent_list.class));
+                startActivity( new Intent(getContext(), ReferentListActivity.class));
             }
         });
 

@@ -14,14 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Referent_list"
+            android:name=".ReferentListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Fragments.ReferralActivity"
+            android:name=".ApplyReferralActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

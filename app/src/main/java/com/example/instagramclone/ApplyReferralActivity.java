@@ -1,24 +1,20 @@
-package com.example.instagramclone.Fragments;
+package com.example.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.instagramclone.PostActivity;
-import com.example.instagramclone.R;
-import com.example.instagramclone.Start_activity;
 import com.example.instagramclone.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class ReferralActivity extends AppCompatActivity {
+public class ApplyReferralActivity extends AppCompatActivity {
     Post post;
     Button btnSubmit;
     EditText etCoverLetter, etResumeLink;
@@ -44,11 +40,11 @@ public class ReferralActivity extends AppCompatActivity {
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("postId",post.getPostId());
                     map.put("coverLetter",coverLetter);
-                    map.put("resumeLetter",resumeLink);
+                    map.put("resumeLink",resumeLink);
                     map.put("userId",userId);
                     map.put("publisher",post.getPublisher());
                     FirebaseDatabase.getInstance().getReference().child("Referrals").child(post.getPostId()).child(userId).setValue(map);
-                    Toast.makeText(ReferralActivity.this, "Referral Submitted Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ApplyReferralActivity.this, "Referral Submitted Successful", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

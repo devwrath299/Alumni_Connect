@@ -4,29 +4,18 @@ public class Referent {
     String coverLetter;
     String postId;
     String publisher;
-    String resumeLetter;
+    String resumeLink;
     String userId;
 
     public Referent() {
 
     }
 
-    @Override
-    public String toString() {
-        return "Referent{" +
-                "coverLetter='" + coverLetter + '\'' +
-                ", postId='" + postId + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", resumeLetter='" + resumeLetter + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
-    }
-
-    public Referent(String coverLetter, String postId, String publisher, String resumeLetter, String userId) {
+    public Referent(String coverLetter, String postId, String publisher, String resumeLink, String userId) {
         this.coverLetter = coverLetter;
         this.postId = postId;
         this.publisher = publisher;
-        this.resumeLetter = resumeLetter;
+        this.resumeLink = resumeLink;
         this.userId = userId;
     }
 
@@ -54,12 +43,12 @@ public class Referent {
         this.publisher = publisher;
     }
 
-    public String getResumeLetter() {
-        return resumeLetter;
+    public String getResumeLink() {
+        return resumeLink;
     }
 
-    public void setResumeLetter(String resumeLetter) {
-        this.resumeLetter = resumeLetter;
+    public void setResumeLink(String resumeLink) {
+        this.resumeLink = resumeLink;
     }
 
     public String getUserId() {
