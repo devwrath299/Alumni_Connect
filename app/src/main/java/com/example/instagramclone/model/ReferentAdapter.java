@@ -11,6 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.instagramclone.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,10 +40,28 @@ public class ReferentAdapter extends  RecyclerView.Adapter<ReferentAdapter.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Referent referent = referentList.get(position);
         holder.tvCoverLetter.setText("Cover Letter:\n"+referent.getCoverLetter());
         holder.tvResumeLink.setText("Resume Link: \n"+ referent.getResumeLink());
+        FirebaseDatabase.getInstance().getReference().child("Users").child(referent.getPublisher()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user.getImageUrl().equals("default")){
+                    holder.imageprofile.setImageResource(R.drawable.unkown_person_24);
+                }else{
+                    Picasso.get().load(user.getImageUrl()).into(holder.imageprofile);}
+                holder.username.setText(user.getUsername());
+                holder.tvFullName.setText(user.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
