@@ -159,6 +159,8 @@ public class Singup_Activity extends AppCompatActivity implements
                 map.put("Password",Password);
                 map.put("UserId",Uid);
                 map.put("bio","");
+                map.put("jobRole","");
+                map.put("companyName","");
                 map.put("ImageUrl","default");
                 map.put("collegeId",fetchCollegeIdFromCollegeName(currentCollegeNameSelected));
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

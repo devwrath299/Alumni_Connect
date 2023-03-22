@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SearchFragment extends Fragment {
@@ -57,7 +58,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchuser(charSequence.toString());
+                searchuserByUserName(charSequence.toString());
 
             }
 
@@ -105,7 +106,11 @@ public class SearchFragment extends Fragment {
         userAdapter = new UserAdapter(getContext(), mUsers, true);
         recyclerView.setAdapter(userAdapter);
     }
-    public  void  searchuser(String s){
+    public  void  searchuserByUserName(final String s){
+        if (TextUtils.isEmpty(search_bar.getText().toString())){
+            readusers();
+            return;
+        }
         Query query= FirebaseDatabase.getInstance().getReference().child("Users")
                 .orderByChild("Username").startAt(s).endAt(s+"\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
@@ -118,8 +123,7 @@ public class SearchFragment extends Fragment {
                         mUsers.add(user);
                     }
             }
-
-                userAdapter.notifyDataSetChanged();
+                searchUserByCompanyName(s);
         }
 
             @Override
@@ -127,5 +131,47 @@ public class SearchFragment extends Fragment {
 
             }
     });
+    }
+    public void searchUserByCompanyName(final String s){
+        Query query= FirebaseDatabase.getInstance().getReference().child("Users")
+                .orderByChild("companyName").startAt(s).endAt(s+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot npsnapshot : snapshot.getChildren()) {
+                    User user = npsnapshot.getValue(User.class);
+                    if(user.getCollegeId().equals(currentCollegeId)){
+                        mUsers.add(user);
+                    }
+                }
+                searchUserByJobRole(s);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void searchUserByJobRole(String s){
+        Query query= FirebaseDatabase.getInstance().getReference().child("Users")
+                .orderByChild("jobRole").startAt(s).endAt(s+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot npsnapshot : snapshot.getChildren()) {
+                    User user = npsnapshot.getValue(User.class);
+                    if(user.getCollegeId().equals(currentCollegeId)){
+                        mUsers.add(user);
+                    }
+                }
+                userAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

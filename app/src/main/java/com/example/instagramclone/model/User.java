@@ -9,8 +9,39 @@ public class User {
     private String collegeId;
     private String bio;
     private String ImageUrl;
+    private String jobRole;
+    private String companyName;
+
+    public String getJobRole() {
+        return jobRole;
+    }
+
+    public void setJobRole(String jobRole) {
+        this.jobRole = jobRole;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public User() {
+    }
+
+    public User(String username, String name, String email, String password, String userId, String collegeId, String bio, String imageUrl, String jobRole, String companyName) {
+        Username = username;
+        Name = name;
+        Email = email;
+        Password = password;
+        UserId = userId;
+        this.collegeId = collegeId;
+        this.bio = bio;
+        ImageUrl = imageUrl;
+        this.jobRole = jobRole;
+        this.companyName = companyName;
     }
 
     public String getCollegeId() {

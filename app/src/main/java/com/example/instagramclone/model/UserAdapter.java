@@ -69,6 +69,8 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
         }else{
             holder.btnfollow.setVisibility(View.VISIBLE);
         }
+        holder.companyName.setText(user.getCompanyName());
+        holder.jobRole.setText(user.getJobRole());
         holder.btnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +161,9 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
         public  TextView name;
         public Button btnfollow;
         public TextView collegeName;
+        public TextView jobRole;
+        public TextView companyName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -167,6 +172,9 @@ public class UserAdapter  extends  RecyclerView.Adapter<UserAdapter.ViewHolder>{
             name = itemView.findViewById(R.id.fullname);
             btnfollow = itemView.findViewById(R.id.btnfollow);
             collegeName = itemView.findViewById(R.id.collgeName);
+            jobRole = itemView.findViewById(R.id.jobRole);
+            companyName = itemView.findViewById(R.id.companyName);
+
 
 
 

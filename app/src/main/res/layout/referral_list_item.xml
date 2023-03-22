@@ -86,7 +86,8 @@
             android:text="Resume Link"
             android:autoLink="web"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dimen_5dp"/>
 
 
         <View style="@style/Divider" />

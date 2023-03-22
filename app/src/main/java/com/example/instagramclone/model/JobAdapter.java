@@ -58,11 +58,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         holder.jobDomain.setText(post.getJobData().getJobDomain());
         holder.jobRole.setText(post.getJobData().getJobRole());
         holder.jobDescription.setText(post.getJobData().getJobDescription());
+        if(isRefferallayout){
+            holder.applyReferral.setText("See Referral Applicants");
+        }
         holder.applyReferral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isRefferallayout){
-                    holder.applyReferral.setText("See Referral Applicants");
                     Intent intent =new Intent(mcontext, ReferentListActivity.class);
                     intent.putExtra("postId", post.getPostId());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
